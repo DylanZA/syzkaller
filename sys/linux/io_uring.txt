@@ -222,6 +222,7 @@ syz_io_uring_complete(ring_ptr ring_ptr) fd
 
 # Submit sqe into the sq_ring
 syz_io_uring_submit(ring_ptr ring_ptr, sqes_ptr sqes_ptr, sqe ptr[in, io_uring_sqe_u])
+syz_io_uring_submit_enter(ring_ptr ring_ptr, sqes_ptr sqes_ptr, sqe ptr[in, io_uring_sqe_u], fd fd_io_uring)
 
 io_uring_sqe_u [
 	IORING_OP_NOP			io_uring_sqe$nop

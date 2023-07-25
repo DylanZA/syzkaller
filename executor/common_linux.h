@@ -2000,6 +2000,15 @@ static long syz_io_uring_submit(volatile long a0, volatile long a1, volatile lon
 	__atomic_store_n(sq_tail_ptr, sq_tail_next, __ATOMIC_RELEASE);
 
 	// Now the application is free to call io_uring_enter() to submit the sqe
+
+	return 0;
+}
+
+static long syz_io_uring_submit_enter(volatile long a0, volatile long a1, volatile long a2, volatile int a3)
+{
+	int fd = (int)a3;
+	syz_io_uring_submit(a0, a1, a2);
+	syscall(__NR_io_uring_enter, fd, 1, 1, 0, 0, 0);
 	return 0;
 }
 

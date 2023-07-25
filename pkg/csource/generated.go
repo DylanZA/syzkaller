@@ -4488,6 +4488,15 @@ static long syz_io_uring_submit(volatile long a0, volatile long a1, volatile lon
 	memcpy(sqe_dest, sqe, SIZEOF_IO_URING_SQE);
 	uint32 sq_tail_next = *sq_tail_ptr + 1;
 	__atomic_store_n(sq_tail_ptr, sq_tail_next, __ATOMIC_RELEASE);
+
+	return 0;
+}
+
+static long syz_io_uring_submit_enter(volatile long a0, volatile long a1, volatile long a2, volatile int a3)
+{
+	int fd = (int)a3;
+	syz_io_uring_submit(a0, a1, a2);
+	syscall(__NR_io_uring_enter, fd, 1, 1, 0, 0, 0);
 	return 0;
 }
 
